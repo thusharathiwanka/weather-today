@@ -1,23 +1,31 @@
+//Adding event lister to load body
 window.addEventListener("load", () => {
+  //Selecting elements from html document
   let timeZone = document.querySelector(".timezone");
   let temperature = document.querySelector(".temperature");
   let temperatureDes = document.querySelector(".temperature-description");
   let span = document.querySelector("span");
   let body = document.querySelector("body");
+  //Creating variables to store latitude and longitude
   let longitude;
   let latitude;
 
+  //Checking for location permissions
   if (navigator.geolocation) {
+    //Getting coordinates and initializing variables
     navigator.geolocation.getCurrentPosition((position) => {
       longitude = position.coords.longitude;
       latitude = position.coords.latitude;
 
+      //Api calling with coordinates
       const apiCall = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=71bf666d1eae3a11350b9c11810f0d99`;
 
+      //Fetching call response
       fetch(apiCall)
         .then((response) => {
           return response.json();
         })
+        //Getting data from response
         .then((data) => {
           console.log(data);
           let temp = data.main.temp / 10;
@@ -25,7 +33,7 @@ window.addEventListener("load", () => {
           let name = data.name;
           let country = data.sys.country;
           let description = data.weather[0].main;
-
+          //Checking temp to change background gradient
           if (actualTemp <= 25) {
             body.style.backgroundImage =
               "linear-gradient(120deg, #2980B9, #6DD5FA)";
@@ -37,6 +45,7 @@ window.addEventListener("load", () => {
               "linear-gradient(120deg, #CB356B, #BD3F32)";
           }
 
+          //Replacing elements with values
           timeZone.textContent = `${name} / ${country}`;
           temperature.textContent = actualTemp;
           temperatureDes.textContent = description;

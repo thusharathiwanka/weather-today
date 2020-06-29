@@ -1,3 +1,4 @@
+/* Removing default styles */
 *,
 *::before,
 *::after {
@@ -6,6 +7,7 @@
   box-sizing: border-box;
 }
 
+/* Global styles */
 body {
   font-family: "poppins", sans-serif;
   width: 100%;
@@ -44,6 +46,7 @@ span {
   font-size: 2rem;
 }
 
+/* Custom classes */
 .temperature-section {
   display: flex;
   flex-direction: column;
